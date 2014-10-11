@@ -1,0 +1,21 @@
+!!!
+%html
+
+  %head
+    %meta{charset: 'utf-8'}
+    %script{src: 'https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'}
+    %link{href: 'https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css', rel:'stylesheet'}
+    :css
+      body { margin:0; padding:0;  }
+      #map {
+        position:absolute;
+        top:0;
+        bottom:0;
+        width:100%;
+        }
+  %body
+    %div#map
+    :javascript
+      L.mapbox.accessToken = 'pk.eyJ1IjoiZ3lwc3lkYXZlNSIsImEiOiIxTmJIeHJNIn0.a1tH004BEEbTs0k5UhIF0Q';
+      var map = L.mapbox.map('map', 'gypsydave5.jnnf7a4f')
+      .setView([51.523374017036076, -0.08701354265213013], 17);
