@@ -19,3 +19,19 @@
       L.mapbox.accessToken = 'pk.eyJ1IjoiZ3lwc3lkYXZlNSIsImEiOiIxTmJIeHJNIn0.a1tH004BEEbTs0k5UhIF0Q';
       var map = L.mapbox.map('map', 'gypsydave5.jnnf7a4f')
       .setView([51.523374017036076, -0.08701354265213013], 17);
+
+      var geojson = [
+        {
+            "type" : "Feature",
+            "geometry":{
+              "coordinates":[ -0.16410291194915771, 51.441523196862875 ],
+              "type":"Point"
+              },
+            "properties":{
+              "description":"Dave's House",
+              "title":"Dave's House"
+           },
+        }
+      ]
+
+      map.featureLayer.setGeoJSON(geojson);
