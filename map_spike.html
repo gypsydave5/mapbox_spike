@@ -31,6 +31,7 @@
     <p>
       <a class='do_stuff' id='daves_house'>Go to Dave's House</a>
       <a class='do_stuff' id='makers'>Go to Makers</a>
+      <a class='do_stuff' id='boom'>Import Marker</a>
     </p>
     <script>
       L.mapbox.accessToken = 'pk.eyJ1IjoiZ3lwc3lkYXZlNSIsImEiOiIxTmJIeHJNIn0.a1tH004BEEbTs0k5UhIF0Q';
@@ -50,7 +51,34 @@
            },
         }
       ]
+      
+      var londonWall = {
+          "type": "Feature",
+          "properties": {
+            "description" : "The original Roman wall in London",
+            "title" : "London Wall",
+            "color" : "orange"
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [ [ -0.07475852966308594, 51.507300079506656 ],
+                [ -0.07475852966308594, 51.510558723334285 ],
+                [ -0.08136749267578125, 51.51616731848544 ],
+                [ -0.08969306945800781, 51.5177162373547 ],
+                [ -0.09776115417480469, 51.51776964741072 ],
+                [ -0.10076522827148438, 51.515526371131976 ],
+                [ -0.10179519653320312, 51.51082581495246 ],
+                [ -0.09080886840820312, 51.510291630150256 ],
+                [ -0.07965087890625, 51.508421934016845 ],
+                [ -0.07475852966308594, 51.507300079506656 ]
+              ]
+            ]
+            }
+          }
+      
       var davesHouse = L.mapbox.featureLayer(geojson).addTo(map);
+      var londonLayer = L.geoJson().addTo(map);
       
       $(document).ready(function(){
       
@@ -60,6 +88,22 @@
       
         $('#makers').on('click', function(){
            map.setView([51.523374017036076, -0.08701354265213013], 17)
+        });
+      
+        $('#boom').on('click', function(){
+          //  L.mapbox.featureLayer(londonWall).addTo(map);
+          londonLayer.clearLayers()
+          londonLayer.addData( londonWall, {
+            onEachFeature: function(feature, layer) {
+                layer.bindPopup(feature.properties.description)
+            }
+          })
+          console.log(londonWall.geometry.coordinates[0][0]);
+            map.setView([londonWall.geometry.coordinates[0][0][1], londonWall.geometry.coordinates[0][0][0]], 12,
+              {
+              pan : {animate : true, duration: 50000},
+              zoom : {animate : true}
+              });
         });
       });
       //map.featureLayer.setGeoJSON(geojson);
